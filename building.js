@@ -10,14 +10,19 @@ const Elevator = require('./elevator');
 function Building({ totalElevators = 1, totalFloors = 2 } = {}) {
   this.floors = Math.max(totalFloors, 2); //must have at least 2 floors to require an elevator
   this.elevators = [];
+  this.activeElevators = []; //only elevators not in maintenance mode
 
   this._init = function() {
     for (let i = 1; i <= totalElevators; i++) {
       this.elevators.push(new Elevator(i));
     }
+
+    this.activeElevators = [...this.elevators];
   };
 
   this._init();
 }
+
+Building.prototype.fetch = function(targetFloor) {};
 
 module.exports = Building;
