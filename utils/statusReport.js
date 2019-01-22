@@ -9,3 +9,7 @@ exports.move = (elevatorID, floor) => {
 exports.openDoor = elevatorID => {
   console.log(`Elevator ${elevatorID} opening door`);
 };
+
+exports.closeDoor = elevatorID => {
+  console.log(`Elevator ${elevatorID} closing door`);
+};
