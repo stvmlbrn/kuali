@@ -81,3 +81,5 @@ Elevator.prototype.closeDoor = function() {
   this.doorIsOpen = false;
   closeDoor(this.id);
 };
+
+module.exports = Elevator;
