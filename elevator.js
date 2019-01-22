@@ -7,11 +7,10 @@ function Elevator(id) {
   this.direction = '';
   this.trips = 0;
   this.requireMaintenance = false;
-  this.doorIsOpen: false;
+  this.doorIsOpen = false;
 }
 
 Elevator.prototype.move = function(targetFloor) {
-
   this.moving = true;
   /**
    * Increment or decrement the instance floor value before
@@ -51,6 +50,4 @@ Elevator.prototype.openDoor = function() {
 
   this.doorIsOpen = true;
   report.openDoor(this.id);
-}
-
-
+};
