@@ -17,7 +17,8 @@ function Elevator(id) {
 }
 
 /**
- *
+ * Handle reporting and status updates when an elevator is moving
+ * @param {integer} targetFloor - the floor number to move to
  */
 Elevator.prototype.move = function(targetFloor) {
   if (this.doorIsOpen) {
