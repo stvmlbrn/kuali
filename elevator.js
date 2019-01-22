@@ -51,6 +51,11 @@ Elevator.prototype.move = function(targetFloor) {
 
   this.moving = false;
   this.trips++;
+
+  if (this.trips >= 100) {
+    this.requireMaintenance = true;
+  }
+
   report.arrive(this.id, targetFloor);
   this.openDoor();
 };
