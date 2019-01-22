@@ -1,5 +1,11 @@
 import * as report from './utils/statusReport';
 
+/**
+ * Represents an elevator in the building
+ * @constructor
+ * @param {integor} id - the ID of the elevator to distinguish between
+ * other elevevators in the same building
+ */
 function Elevator(id) {
   this.id = id;
   this.floor = 1;
@@ -10,7 +16,14 @@ function Elevator(id) {
   this.doorIsOpen = false;
 }
 
+/**
+ *
+ */
 Elevator.prototype.move = function(targetFloor) {
+  if (this.doorIsOpen) {
+    this.closeDoor();
+  }
+
   this.moving = true;
   /**
    * Increment or decrement the instance floor value before
@@ -50,4 +63,15 @@ Elevator.prototype.openDoor = function() {
 
   this.doorIsOpen = true;
   report.openDoor(this.id);
+};
+
+/**
+ * Set the doorIsOpen status to false and report
+ * that the doors are closing.
+ */
+Elevator.prototype.closeDoor = function() {
+  if (!this.doorIsOpen) return;
+
+  this.doorIsOpen = false;
+  report.closeDoor(this.id);
 };
