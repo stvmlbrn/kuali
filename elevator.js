@@ -1,4 +1,4 @@
-import * as report from './utils/statusReport';
+const { arrive, move, openDoor, closeDoor } = require('./utils/statusReport');
 
 /**
  * Represents an elevator in the building
@@ -36,7 +36,7 @@ Elevator.prototype.move = function(targetFloor) {
     this.floor++;
 
     while (this.floor < targetFloor) {
-      report.move(this.id, this.floor);
+      move(this.id, this.floor);
       this.floor++;
     }
   } else {
@@ -44,7 +44,7 @@ Elevator.prototype.move = function(targetFloor) {
     this.floor--;
 
     while (this.floor > targetFloor) {
-      report.move(this.id, this.floor);
+      move(this.id, this.floor);
       this.floor--;
     }
   }
@@ -56,7 +56,7 @@ Elevator.prototype.move = function(targetFloor) {
     this.requireMaintenance = true;
   }
 
-  report.arrive(this.id, targetFloor);
+  arrive(this.id, targetFloor);
   this.openDoor();
 };
 
@@ -68,7 +68,7 @@ Elevator.prototype.openDoor = function() {
   if (this.doorIsOpen) return;
 
   this.doorIsOpen = true;
-  report.openDoor(this.id);
+  openDoor(this.id);
 };
 
 /**
@@ -79,5 +79,5 @@ Elevator.prototype.closeDoor = function() {
   if (!this.doorIsOpen) return;
 
   this.doorIsOpen = false;
-  report.closeDoor(this.id);
+  closeDoor(this.id);
 };
