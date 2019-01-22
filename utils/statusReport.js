@@ -1,11 +1,11 @@
-exports.arrive = floor => {
-  console.log(`Arriving at floor ${floor}`);
+exports.arrive = (elevatorID, floor) => {
+  console.log(`Elevator ${elevatorID} arriving at floor ${floor}`);
 };
 
-exports.move = floor => {
-  console.log(`Moving past floor ${floor}`);
+exports.move = (elevatorID, floor) => {
+  console.log(`Elevator ${elevatorID} moving past floor ${floor}`);
 };
 
-exports.openDoor = () => {
-  console.log('');
+exports.openDoor = elevatorID => {
+  console.log(`Elevator ${elevatorID} opening door`);
 };
