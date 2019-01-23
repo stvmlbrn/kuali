@@ -1,7 +1,8 @@
 const Elevator = require('./elevator');
 
 /**
- *
+ * Represents a building with elevators
+ * @constructor
  * @param {object} - an object to initialize the building. Keys
  * should include totalElevators and totalFloors. Defaults to 1 elevator
  * and 2 floors, so new buildings can be created without passing in
@@ -28,34 +29,39 @@ Building.prototype.fetchElevator = function(targetFloor) {
 
   let closest; //index of the closest elevator
   let shortestDistance; //tracks the current shortest distance from the closet elevator.
+  let i = 0; //keep track of current index in the for loop
 
-  this.activeElevators.forEach((e, i) => {
-    let distance = Math.abs(e.floor - targetFloor);
-
+  for (let e of this.activeElevators) {
+    let ignore = false;
     // if the elevator is moving in the wrong direction, ignore it.
     if (e.moving) {
       if (e.floor < targetFloor && e.direction === 'down') {
-        return;
+        ignore = true;
       }
 
       if (e.floor > targetFloor && e.direction === 'up') {
-        return;
+        ignore = true;
       }
     }
 
-    if (!closest) {
-      //don't have a closest one yet, so keep this on.
-      closest = i;
-      shortestDistance = distance;
-      return;
+    if (!ignore) {
+      let distance = Math.abs(e.floor - targetFloor);
+
+      if (closest === undefined) {
+        //don't have a closest one yet, so keep this on.
+        closest = i;
+        shortestDistance = distance;
+      } else {
+        if (distance < shortestDistance) {
+          // we have a new closest elevator
+          closest = i;
+          shortestDistance = distance;
+        }
+      }
     }
 
-    if (distance < shortestDistance) {
-      // we have a new closest elevator
-      closest = i;
-      shortestDistance = distance;
-    }
-  });
+    i++;
+  }
 
   this.elevators[closest].move(targetFloor);
 };
