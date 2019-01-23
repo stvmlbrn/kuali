@@ -7,10 +7,15 @@ const { arrive, move, openDoor, closeDoor } = require('./utils/statusReport');
  * other elevevators in the same building
  */
 function Elevator(id) {
+  /**
+   * this.direction, this.moving, and this.targetFloor will be used to determine
+   * if a moving elevator can respond to a call on it's way to its destination.
+   */
   this.id = id;
   this.floor = 1;
   this.moving = false;
   this.direction = '';
+  this.targetFloor;
   this.trips = 0;
   this.requireMaintenance = false;
   this.doorIsOpen = false;
@@ -21,6 +26,8 @@ function Elevator(id) {
  * @param {integer} targetFloor - the floor number to move to
  */
 Elevator.prototype.move = function(targetFloor) {
+  this.targetFloor = targetFloor;
+
   if (this.doorIsOpen) {
     this.closeDoor();
   }
