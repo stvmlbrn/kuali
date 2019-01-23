@@ -23,6 +23,41 @@ function Building({ totalElevators = 1, totalFloors = 2 } = {}) {
   this._init();
 }
 
-Building.prototype.fetch = function(targetFloor) {};
+Building.prototype.fetchElevator = function(targetFloor) {
+  if (targetFloor < 1 || targetFloor > this.floors) return;
+
+  let closest; //index of the closest elevator
+  let shortestDistance; //tracks the current shortest distance from the closet elevator.
+
+  this.activeElevators.forEach((e, i) => {
+    let distance = Math.abs(e.floor - targetFloor);
+
+    // if the elevator is moving in the wrong direction, ignore it.
+    if (e.moving) {
+      if (e.floor < targetFloor && e.direction === 'down') {
+        return;
+      }
+
+      if (e.floor > targetFloor && e.direction === 'up') {
+        return;
+      }
+    }
+
+    if (!closest) {
+      //don't have a closest one yet, so keep this on.
+      closest = i;
+      shortestDistance = distance;
+      return;
+    }
+
+    if (distance < shortestDistance) {
+      // we have a new closest elevator
+      closest = i;
+      shortestDistance = distance;
+    }
+  });
+
+  this.elevators[closest].move(targetFloor);
+};
 
 module.exports = Building;
