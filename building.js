@@ -66,4 +66,13 @@ Building.prototype.fetchElevator = function(targetFloor) {
   this.elevators[closest].move(targetFloor);
 };
 
+Building.prototype.removeElevators = function() {
+  /**
+   * ran out of time to show an implementation of this, but the idea is to keep
+   * a list of active elevators that is seperate from all building elevators to limit
+   * the number of elevators that needs checked in fetchElevator()
+   */
+  this.activeElevators = this.elevators.filter(e => (!e.requireMaintenance ? e : null));
+};
+
 module.exports = Building;
