@@ -18,7 +18,7 @@ function Building({ totalElevators = 1, totalFloors = 2 } = {}) {
       this.elevators.push(new Elevator(i));
     }
 
-    this.activeElevators = [...this.elevators];
+    this.activeElevators = [...this.elevators]; // all elevators are active in the beginning
   };
 
   this._init();
